@@ -1,0 +1,107 @@
+﻿@page "/emails"
+@inject HttpClient Http
+
+<PageTitle>Emails - Test SMTP</PageTitle>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Emails</h4>
+                <button class="btn @ButtonClass" @onclick="ToggleDeliveryStatus">
+                    @(DeliveryEnabled ? "Disable Delivery" : "Enable Delivery")
+                </button>
+            </div>
+        </div>
+    </div>
+
+    @if (Emails is not null)
+    {
+        @if (Emails.Any())
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var email in Emails)
+                    {
+                        <tr>
+                            <td>@(Emails.IndexOf(email) + 1)</td>
+                            <td>@email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No emails found.</p>
+        }
+    }
+    else
+    {
+        <p>Loading...</p>
+    }
+</div>
+
+@code {
+    private bool DeliveryEnabled { get; set; }
+    private List<string> Emails { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchEmails();
+    }
+
+    private async Task FetchEmails()
+    {
+        try
+        {
+            var response = await Http.GetFromJsonAsync<EmailResponse>("/emails");
+            if (response is not null)
+            {
+                DeliveryEnabled = response.DeliveryEnabled;
+                Emails = response.Emails ?? new List<string>();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching emails: {ex.Message}");
+        }
+    }
+
+    private async Task ToggleDeliveryStatus()
+    {
+        try
+        {
+            var newStatus = !DeliveryEnabled;
+            var response = await Http.PostAsync($"/delivery?status={newStatus}", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                DeliveryEnabled = newStatus;
+                StateHasChanged();
+            }
+            else
+            {
+                Console.WriteLine("Error toggling delivery status.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error toggling delivery status: {ex.Message}");
+        }
+    }
+
+    private string ButtonClass => DeliveryEnabled ? "btn-danger" : "btn-success";
+
+    private class EmailResponse
+    {
+        public bool DeliveryEnabled { get; set; }
+        public List<string> Emails { get; set; } = new();
+    }
+}

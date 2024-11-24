@@ -1,0 +1,12 @@
+@SmtpStoreApi_HostAddress = http://localhost:55933
+@ApiToken = api-token
+
+GET {{SmtpStoreApi_HostAddress}}/emails/
+Accept: application/json
+Authorization: Bearer {{ApiToken}}
+
+###
+
+GET {{SmtpStoreApi_HostAddress}}/email/283cddd9-051e-4a98-bd8b-d156fcbc1d02.eml
+Accept: application/json
+Authorization: Bearer {{ApiToken}}

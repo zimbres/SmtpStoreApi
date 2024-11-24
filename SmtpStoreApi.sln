@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35431.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmtpStoreApi", "src\SmtpStoreApi\SmtpStoreApi.csproj", "{3BF24F32-BFC2-4001-A2A3-BB6FBDFC937E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmtpStoreApi.AppHost", "src\SmtpStoreApi.AppHost\SmtpStoreApi.AppHost.csproj", "{E4493F61-796E-440C-A179-4D4163798FA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmtpStoreApi.ServiceDefaults", "src\SmtpStoreApi.ServiceDefaults\SmtpStoreApi.ServiceDefaults.csproj", "{9D0AD1BC-43FF-4B79-BA17-669437DEAC87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailDeliveryWorker", "src\EmailDeliveryWorker\EmailDeliveryWorker.csproj", "{D6292CA1-0B27-4FAC-A711-8870EE738EF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmtpWebForm", "src\SmtpWebForm\SmtpWebForm.csproj", "{A3A58F09-DCD4-43D2-9437-D1600493EECD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{94EC1505-6EC7-4EC7-B03B-BCBA64CE3F5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BF24F32-BFC2-4001-A2A3-BB6FBDFC937E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BF24F32-BFC2-4001-A2A3-BB6FBDFC937E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BF24F32-BFC2-4001-A2A3-BB6FBDFC937E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BF24F32-BFC2-4001-A2A3-BB6FBDFC937E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4493F61-796E-440C-A179-4D4163798FA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4493F61-796E-440C-A179-4D4163798FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4493F61-796E-440C-A179-4D4163798FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4493F61-796E-440C-A179-4D4163798FA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D0AD1BC-43FF-4B79-BA17-669437DEAC87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D0AD1BC-43FF-4B79-BA17-669437DEAC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D0AD1BC-43FF-4B79-BA17-669437DEAC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D0AD1BC-43FF-4B79-BA17-669437DEAC87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6292CA1-0B27-4FAC-A711-8870EE738EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6292CA1-0B27-4FAC-A711-8870EE738EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6292CA1-0B27-4FAC-A711-8870EE738EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6292CA1-0B27-4FAC-A711-8870EE738EF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3A58F09-DCD4-43D2-9437-D1600493EECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3A58F09-DCD4-43D2-9437-D1600493EECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3A58F09-DCD4-43D2-9437-D1600493EECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3A58F09-DCD4-43D2-9437-D1600493EECD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0D5E21E-1F56-4A0A-8ACC-B2D8E31D1F7C}
+	EndGlobalSection
+EndGlobal

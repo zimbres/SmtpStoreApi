@@ -1,0 +1,121 @@
+﻿@page "/"
+@inject SendMailService MailService
+
+<PageTitle>Test SMTP</PageTitle>
+
+<EditForm Model="@smtpConfig" OnValidSubmit="@TestSmtp" class="needs-validation">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="alert alert-danger" />
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label for="smtpServer" class="form-label">SMTP Server</label>
+            <InputText id="smtpServer" @bind-Value="smtpConfig.SmtpHost" class="form-control" />
+            <small class="form-text text-muted">Example: smtp.example.com</small>
+        </div>
+        <div class="col-md-2">
+            <label for="port" class="form-label">Port</label>
+            <InputNumber id="port" @bind-Value="smtpConfig.Port" class="form-control" />
+            <small class="form-text text-muted">Example: 25</small>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+        <div class="col-md-6">
+            <label for="from" class="form-label">From</label>
+            <InputText id="from" @bind-Value="smtpConfig.From" class="form-control" />
+            <small class="form-text text-muted">Example: user@example.com</small>
+        </div>
+        <div class="col-md-6">
+            <label for="to" class="form-label">To</label>
+            <InputText id="to" @bind-Value="smtpConfig.To" class="form-control" />
+            <small class="form-text text-muted">Example: recipient@example.com</small>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+        <div class="col-md-6">
+            <label for="username" class="form-label">Username (Optional)</label>
+            <InputText id="username" @bind-Value="smtpConfig.Username" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label for="password" class="form-label">Password (Optional)</label>
+            <InputText id="password" @bind-Value="smtpConfig.Password" type="password" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+        <div class="col-md-6">
+            <label for="subject" class="form-label">Subject</label>
+            <InputText id="subject" @bind-Value="smtpConfig.Subject" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label for="enableSsl" class="form-label">Enable SSL</label>
+            <div class="form-check mt-2">
+                <InputCheckbox id="enableSsl" @bind-Value="smtpConfig.EnableSsl" class="form-check-input" />
+                <label for="enableSsl" class="form-check-label">Enable SSL</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <label for="message" class="form-label">Message</label>
+        <InputTextArea id="message" @bind-Value="smtpConfig.Message" class="form-control" rows="3"></InputTextArea>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+        <button type="submit" class="btn btn-primary">Test SMTP</button>
+    </div>
+</EditForm>
+
+@{
+    var numberOfLines = string.IsNullOrEmpty(result) ? 0 : result.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).Length;
+
+    int lineHeight = 20;
+    int maxHeight = numberOfLines * lineHeight;
+
+    int maxHeightWithCap = Math.Min(maxHeight, 300);
+}
+
+@if (!string.IsNullOrEmpty(result))
+{
+    <div class="alert alert-info mt-4">
+        <strong>Result:</strong>
+        <pre style="white-space: pre-wrap; overflow-x: auto; max-height: @maxHeightWithCap px; background-color: #f8f9fa; padding: 10px; border-radius: 5px;">
+            @result
+            </pre>
+    </div>
+}
+
+@code {
+    private SmtpConfig smtpConfig = new SmtpConfig();
+    private string? result;
+
+    private async Task TestSmtp()
+    {
+        result = await Task.Run(() => MailService.SendMail(
+            smtpConfig.SmtpHost,
+            smtpConfig.Port,
+            smtpConfig.Username,
+            smtpConfig.Password,
+            smtpConfig.From,
+            smtpConfig.To,
+            smtpConfig.Subject,
+            smtpConfig.Message,
+            smtpConfig.EnableSsl
+        ));
+    }
+
+    public class SmtpConfig
+    {
+        public string SmtpHost { get; set; } = "localhost";
+        public int Port { get; set; } = 2525;
+        public string From { get; set; } = "from-user@example.com";
+        public string To { get; set; } = "to-recipient@example.com";
+        public string Subject { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public bool EnableSsl { get; set; } = false;
+    }
+}
