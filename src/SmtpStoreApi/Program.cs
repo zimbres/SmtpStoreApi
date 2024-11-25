@@ -4,6 +4,8 @@ builder.AddServiceDefaults();
 
 var settings = builder.Configuration.GetSection("Settings").Get<Settings>()!;
 
+Directory.CreateDirectory(settings.StorePath);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHostedService<SmtpService>();
 builder.Services.AddSingleton<MessageStoreService>();

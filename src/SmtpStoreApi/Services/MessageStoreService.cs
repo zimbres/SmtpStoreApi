@@ -23,8 +23,6 @@ public class MessageStoreService : MessageStore
 
         var emailPath = Path.Combine(_settings.StorePath, $"{Guid.NewGuid()}.eml");
 
-        Directory.CreateDirectory(Path.GetDirectoryName(emailPath) ?? string.Empty);
-
         await using var fileStream = new FileStream(emailPath, FileMode.Create, FileAccess.Write);
         await message.WriteToAsync(fileStream, cancellationToken);
 
